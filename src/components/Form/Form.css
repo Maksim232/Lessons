@@ -9,13 +9,15 @@ form{
     background-color: slateblue;
     color: black;
 }
-.inputSubmit{
-    height: 31px;
-    width: 80px;
-    margin-left: 1px;
-    padding-bottom: 3.25px;
-    border-top-right-radius:10px ;
-    border-bottom-right-radius: 10px;
-    background-color: slateblue;
-    margin-top: 2
+
+.MuiButton-root.MuiButton-contained {
+    margin-top: 7px;
+    height: 30px;
+    font-family: cursive;
+
+}
+.MuiButton-root.MuiButton-contained:hover{
+    background-color:white;
+    color: black;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }

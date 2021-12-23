@@ -2,9 +2,10 @@
 import './App.css';
 import { Button } from './components/Button/Button';
 import { Message } from './components/Message/Message';
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Form } from './components/Form';
 import { MessageList } from './components/MessageList/MessageList';
+import { ChatList } from './components/Chats/Chats';
 const messageLabel = "Hello, person";
 
 export const AUTHORS = {
@@ -13,10 +14,8 @@ export const AUTHORS = {
 };
 
 function App() {
-
-  const [messageList, setMessageList] = useState([]);
-
   const inputRef = useRef();
+  const [messageList, setMessageList] = useState([]);
   const [counter, setCounter] = useState(0);
   const [counter2, setCounter2] = useState(0);
 
@@ -30,18 +29,41 @@ function App() {
     console.log(counter2);
   };
 
-  const handleAddMessage = (text) => {
-    const newMessage = { text, author: AUTHORS.HUMAN };
+  const handleAddMessage = (newMessage) => {
     setMessageList((prewMessageList) => [...prewMessageList, newMessage]);
   }
+
+  const handleSubmit = (text) => {
+    const newMessage = { text, author: AUTHORS.HUMAN, id: `msg-${Date.now()}` };
+    handleAddMessage(newMessage);
+  };
+
+  useEffect(() => {
+
+    let timeout;
+    if (messageList[messageList.length - 1]?.author === AUTHORS.HUMAN) {
+
+      timeout = setTimeout(
+        () => {
+
+          handleAddMessage({
+            text: "helloiambot", author: AUTHORS.BOT, id: `msg-${Date.now()}`,
+          });
+
+        }, 1500);
+
+    }
+
+  },
+    [messageList]);
 
   return (
     <div className="App">
       <header className="App-header">
-        <Button onButtonClick={handleClick} anyProp={counter} />
+        <ChatList></ChatList>
         <Message title={messageLabel} onemoreProp={123} />
 
-        <Form onSubmit={handleAddMessage} ></Form>
+        <Form onSubmit={handleSubmit} ></Form>
 
         <MessageList messages={messageList} />
       </header>
