@@ -1,4 +1,4 @@
 import './Button.css';
-export const Button = (props) => {
-    return <button className="buttonText">122221</button>;
+export const Button = ({ anyProp, onButtonClick }) => {
+    return <button className="buttonText" onClick={onButtonClick} >{anyProp}</button>;
 };
