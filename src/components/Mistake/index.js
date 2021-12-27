@@ -1,0 +1,1 @@
+export const Mistake = () => <h3>404</h3>;
