@@ -1,7 +1,7 @@
 form{
     width: 350px;
     height: 60px;
-    border: 1px solid white;
+    
 }
 .inputText{
     width: 200px;
@@ -11,8 +11,8 @@ form{
 }
 
 .MuiButton-root.MuiButton-contained {
-    margin-top: 7px;
-    height: 30px;
+    margin-top: 1px;
+    height: 32.5px;
     font-family: cursive;
 
 }

@@ -1,15 +1,15 @@
-import { AUTHORS } from "../../App";
 
+import { Message } from "./Message";
 
-export const MessageList = ({ messages }) => (
+export const AUTHORS = {
+    HUMAN: "human",
+    BOT: "bot",
+};
+
+export const MessageList = ({ messages, humanName }) => (
     <div>
         {messages.map(({ text, author, id }) => (
-            <div
-                key={id}
-                className={author === AUTHORS.HUMAN ? "human-msg" : "bot-msg"}
-            >
-                {author}: {text}
-            </div>
+            <Message humanName={humanName} key={id} author={author} text={text} />
         ))}
     </div>
 );

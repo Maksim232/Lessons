@@ -6,6 +6,15 @@ import { Mistake } from '../Mistake';
 import './Router.css';
 import { ChatList } from "../ChatList";
 import { Form } from "../Form";
+import { Home } from "../Home";
+import { withProfileContext } from "../utils/ProfileContext";
+
+
+export const AUTHORS = {
+    HUMAN: "dude",
+    BOT: "bot",
+};
+
 
 const initialChats = [
     {
@@ -31,9 +40,9 @@ const initialMessages = initialChats.reduce((acc, chat) => {
     return acc;
 }, {});
 
-
 export const Router = () => {
-    const [chats] = useState(initialChats);
+    const [name, setName] = useState('default');
+    const [chats, setChats] = useState(initialChats);
     const [messages, setMessages] = useState(initialMessages);
 
     const handleAddMessage = (newMessage, chatId) => {
@@ -44,36 +53,48 @@ export const Router = () => {
     };
 
     return (
-
-
         <BrowserRouter>
-
-            <ul className='ListofLinks'>
+            <ul>
                 <li>
-
-                    <NavLink style={(isActive) => ({ color: isActive ? "green" : "blue" })} to="/" >Home Page</NavLink>
+                    <NavLink
+                        style={(props) => ({ color: props.isActive ? "green" : "blue" })}
+                        to="/"
+                    >
+                        HOME
+                    </NavLink>
                 </li>
                 <li>
-                    <NavLink style={(isActive) => ({ color: isActive ? "green" : "blue" })} to="/profile" >Profile</NavLink>
+                    <NavLink
+                        style={({ isActive }) => ({ color: isActive ? "green" : "blue" })}
+                        to="/chats"
+                    >
+                        Chats
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink
+                        style={({ isActive }) => ({ color: isActive ? "green" : "blue" })}
+                        to="profile"
+                    >
+                        PROFILE
+                    </NavLink>
                 </li>
             </ul>
+
             <Routes>
-                <Route path="/" element={<Chats />} />
+                <Route path="/" element={<Home />} />
                 <Route path="chats" element={<ChatList chats={chats} />}>
                     <Route
                         path=":chatId"
                         element={
-                            <Chats messages={messages} onAddMessage={handleAddMessage} />
+                            <Chats messages={messages} name={name} onAddMessage={handleAddMessage} />
                         }
                     />
                 </Route>
-                <Route path="/profile" element={<Profile />} />
-                <Route element={Mistake}></Route>
+                <Route path="/profile" element={<Profile name={name} onChangeName={setName} />} />
+
+                <Route path="*" element={<Mistake />} />
             </Routes>
-            {/* <Form /> */}
-
         </BrowserRouter>
-
-
     );
 };

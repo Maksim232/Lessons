@@ -1,6 +1,5 @@
-
 import React, { useEffect, useState } from "react";
-import { Navigate, useParams } from "react-router";
+import { Navigate, useNavigate, useParams } from "react-router";
 import "./Chats.css";
 import { Form } from "../Form";
 import { MessageList } from "../MessageList/MessageList";
@@ -16,55 +15,48 @@ export const AUTHORS = {
 
 
 
-function Chats() {
+function Chats({ messages, onAddMessage, humanName }) {
     const { chatId } = useParams();
-    const [messageList, setMessageList] = useState([]);
 
-
-    const handleAddMessage = (newMessage) => {
-        setMessageList((prewMessageList) => [...prewMessageList, newMessage]);
-    }
 
     const handleSubmit = (text) => {
         const newMessage = { text, author: AUTHORS.HUMAN, id: `msg-${Date.now()}` };
-        handleAddMessage(newMessage);
+        onAddMessage(newMessage, chatId);
     };
 
-
-
-
     useEffect(() => {
-
         let timeout;
-        if (messageList[chatId]?.[messageList[chatId].length - 1]?.author === AUTHORS.HUMAN) {
-
-            timeout = setTimeout(
-                () => {
-
-                    handleAddMessage({
-                        text: "helloiambot", author: AUTHORS.BOT, id: `msg-${Date.now()}`,
-                    }, chatId
-                    );
-                }, 1500);
+        if (
+            messages[chatId]?.[messages[chatId].length - 1]?.author === AUTHORS.HUMAN
+        ) {
+            timeout = setTimeout(() => {
+                onAddMessage(
+                    {
+                        text: "iambot",
+                        author: AUTHORS.BOT,
+                        id: `msg-${Date.now()}`,
+                    },
+                    chatId
+                );
+            }, 1500);
         }
 
         return () => {
             clearTimeout(timeout);
         };
-    },
-        [messageList]);
+    }, [messages]);
 
-    if (!messageList[chatId]) {
+    if (!messages[chatId]) {
         return <Navigate to="/chats" replace />;
     }
 
     return (
         <>
-
-            <div className="App-header">
+            <h3>HEADER</h3>
+            <div className="chat-wrap">
                 <div className="App">
                     <Form onSubmit={handleSubmit} />
-                    <MessageList messages={messageList[chatId]} />
+                    <MessageList humanName={humanName} messages={messages[chatId]} />
                 </div>
             </div>
         </>

@@ -1,17 +1,25 @@
-
-import './App.css';
-import React from "react";
-import { Router } from './components/Router';
-
-
+import React, { useState } from "react";
+import { Provider } from "react-redux";
+import "./App.css";
+import { Router } from "./components/Router";
+import { store } from "./store";
+import { ProfileContext } from "../src/components/utils/ProfileContext"
 
 export const AUTHORS = {
-  HUMAN: "dude",
+  HUMAN: "human",
   BOT: "bot",
 };
 
+
 function App() {
-  return <Router />;
+  const [name, setName] = useState("default");
+  return (
+    <Provider store={store}>
+      <ProfileContext.Provider value={{ name, setName }}>
+        <Router />
+      </ProfileContext.Provider>
+    </Provider>
+  );
 }
 
 export default App;
