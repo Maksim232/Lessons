@@ -1,9 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { Navigate, useNavigate, useParams } from "react-router";
 import "./Chats.css";
 import { Form } from "../Form";
 import { MessageList } from "../MessageList/MessageList";
 
+
+
+
+
+import { useDispatch, useSelector } from "react-redux";
+import { addMessage } from "../../store/messages/actions";
+import {
+    selectMessages,
+    selectMessagesByChatId,
+} from "../../store/messages/selectors";
 
 
 
@@ -15,9 +25,21 @@ export const AUTHORS = {
 
 
 
-function Chats({ messages, onAddMessage, humanName }) {
+function Chats() {
     const { chatId } = useParams();
+    const messages = useSelector(selectMessages);
 
+    const getMessagesByChatId = useMemo(
+        () => selectMessagesByChatId(chatId),
+        [chatId]
+    );
+
+    const messagesForCurrentChat = useSelector(getMessagesByChatId);
+    const dispatch = useDispatch();
+
+    const onAddMessage = (newMessage, chatId) => {
+        dispatch(addMessage(newMessage, chatId));
+    };
 
     const handleSubmit = (text) => {
         const newMessage = { text, author: AUTHORS.HUMAN, id: `msg-${Date.now()}` };
@@ -56,7 +78,7 @@ function Chats({ messages, onAddMessage, humanName }) {
             <div className="chat-wrap">
                 <div className="App">
                     <Form onSubmit={handleSubmit} />
-                    <MessageList humanName={humanName} messages={messages[chatId]} />
+                    <MessageList messages={messagesForCurrentChat} />
                 </div>
             </div>
         </>

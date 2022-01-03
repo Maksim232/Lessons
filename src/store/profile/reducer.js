@@ -1,8 +1,8 @@
-import { showName, SHOW_NAME } from "./actions";
+import { SET_NAME, SHOW_NAME, showName } from "./actions";
 
 const initialState = {
     name: "default name",
-    showName: true,
+    toggleName: true,
 };
 
 export const profileReducer = (state = initialState, action) => {
@@ -10,7 +10,12 @@ export const profileReducer = (state = initialState, action) => {
         case SHOW_NAME:
             return {
                 ...state,
-                showName: !state.showName,
+                toggleName: !state.toggleName,
+            };
+        case SET_NAME:
+            return {
+                ...state,
+                name: action.payload,
             };
         default:
             return state;

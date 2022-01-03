@@ -1,5 +1,5 @@
 
-import { ProfileContext, withProfileContext } from "../../utils/ProfileContext";
+import { withProfileContext } from "../../utils/ProfileContext";
 export const AUTHORS = {
     HUMAN: "human",
     BOT: "bot",
