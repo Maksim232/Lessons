@@ -6,8 +6,6 @@ export const AUTHORS = {
     BOT: "bot",
 };
 
-
-
 export const MessageList = ({ messages }) => (
     <div>
         {messages.map(({ text, author, id }) => (

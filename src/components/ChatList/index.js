@@ -18,14 +18,16 @@ export const ChatList = () => {
         };
         dispatch(addChat(newChat));
     };
-
+    const handleDeleteChat = (id) => {
+        dispatch(deleteChat(id));
+    };
 
 
     return (
         <>
             <ul>
                 {chats.map((chat) => (
-                    <ChatItem key={chat.id} chat={chat} />
+                    <ChatItem key={chat.id} chat={chat} onDelete={handleDeleteChat} />
                 ))}
                 <Form onSubmit={onAddChat} />
             </ul>

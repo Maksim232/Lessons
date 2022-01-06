@@ -1,5 +1,11 @@
 export const ADD_MESSAGE = "MESSAGES::ADD_MESSAGE";
 export const DELETE_MESSAGE = "MESSAGES::DELETE_MESSAGE";
+export const AUTHORS = {
+    HUMAN: "dude",
+    BOT: "bot",
+};
+
+
 
 export const addMessage = (newMessage, chatId) => ({
     type: ADD_MESSAGE,
@@ -16,3 +22,25 @@ export const deleteMessage = (messageId, chatId) => ({
         chatId,
     },
 });
+let timeout;
+
+export const addMessageWithReply = (newMessage, chatId) => (dispatch) => {
+    dispatch(addMessage(newMessage, chatId));
+
+    clearTimeout(timeout);
+
+    if (newMessage.author !== AUTHORS.BOT) {
+        timeout = setTimeout(() => {
+            dispatch(
+                addMessage(
+                    {
+                        text: "iambot",
+                        author: AUTHORS.BOT,
+                        id: `msg-${Date.now()}`,
+                    },
+                    chatId
+                )
+            );
+        }, 1500);
+    }
+};

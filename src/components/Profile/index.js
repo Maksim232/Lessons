@@ -1,33 +1,6 @@
-import { useDispatch, useSelector, connect, shallowEqual } from "react-redux";
-import { store } from "../../store";
+import { connect } from "react-redux";
+import { setName, toggleName } from "../../store/profile/actions";
 import { Form } from "../Form";
-import { setName, SET_NAME, toggleName } from "../../store/profile/actions";
-import { selectShowName, selectUserName } from "../../store/profile/selectors";
-
-export const Profile = () => {
-    const showName = useSelector(selectShowName, shallowEqual);
-    const userName = useSelector(selectUserName, shallowEqual);
-    const dispatch = useDispatch();
-
-    const handleChange = () => {
-        dispatch(toggleName);
-    };
-
-    const handleSubmit = (newName) => {
-        dispatch(setName(newName));
-    };
-
-    return (
-        <>
-            <h3>THIS IS PROFILE</h3>
-            <input type="checkbox" checked={showName} onChange={handleChange} />
-            {showName && <span>{userName}</span>}
-            <Form onSubmit={handleSubmit} />
-        </>
-    );
-};
-
-// export default Profile;
 
 const ProfileForConnect = ({
     showName,

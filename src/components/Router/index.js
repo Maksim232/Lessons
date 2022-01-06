@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter, Link, Routes, Route, NavLink } from "react-router-dom";
 import Chats from "../Chats/Chats";
-import { Profile } from "../Profile";
+import Profile from "../Profile";
 import { Mistake } from '../Mistake';
 import './Router.css';
 import { ChatList } from "../ChatList";

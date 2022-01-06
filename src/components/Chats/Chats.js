@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useMemo } from "react";
-import { Navigate, useNavigate, useParams } from "react-router";
+import React, { useMemo } from "react";
+import { Navigate, useParams } from "react-router";
 import "./Chats.css";
 import { Form } from "../Form";
 import { MessageList } from "../MessageList/MessageList";
@@ -9,7 +9,7 @@ import { MessageList } from "../MessageList/MessageList";
 
 
 import { useDispatch, useSelector } from "react-redux";
-import { addMessage } from "../../store/messages/actions";
+import { addMessage, addMessageWithReply } from "../../store/messages/actions";
 import {
     selectMessages,
     selectMessagesByChatId,
@@ -46,27 +46,6 @@ function Chats() {
         onAddMessage(newMessage, chatId);
     };
 
-    useEffect(() => {
-        let timeout;
-        if (
-            messages[chatId]?.[messages[chatId].length - 1]?.author === AUTHORS.HUMAN
-        ) {
-            timeout = setTimeout(() => {
-                onAddMessage(
-                    {
-                        text: "iambot",
-                        author: AUTHORS.BOT,
-                        id: `msg-${Date.now()}`,
-                    },
-                    chatId
-                );
-            }, 1500);
-        }
-
-        return () => {
-            clearTimeout(timeout);
-        };
-    }, [messages]);
 
     if (!messages[chatId]) {
         return <Navigate to="/chats" replace />;
