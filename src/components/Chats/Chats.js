@@ -1,29 +1,17 @@
 import React, { useMemo } from "react";
 import { Navigate, useParams } from "react-router";
-import "./Chats.css";
+import { useDispatch, useSelector } from "react-redux";
+
 import { Form } from "../Form";
 import { MessageList } from "../MessageList/MessageList";
-
-
-
-
-
-import { useDispatch, useSelector } from "react-redux";
-import { addMessage, addMessageWithReply } from "../../store/messages/actions";
+import { AUTHORS } from "../../components/utils/constants";
+import { addMessage } from "../../store/messages/actions";
 import {
     selectMessages,
     selectMessagesByChatId,
 } from "../../store/messages/selectors";
 
-
-
-export const AUTHORS = {
-    HUMAN: "dude",
-    BOT: "bot",
-};
-
-
-
+import "./Chats.css";
 
 function Chats() {
     const { chatId } = useParams();
@@ -56,7 +44,7 @@ function Chats() {
             <h3>HEADER</h3>
             <div className="chat-wrap">
                 <div className="App">
-                    <Form onSubmit={handleSubmit} />
+                    <Form focusOnChange={chatId} onSubmit={handleSubmit} />
                     <MessageList messages={messagesForCurrentChat} />
                 </div>
             </div>
@@ -65,8 +53,4 @@ function Chats() {
 }
 
 export default Chats;
-
-
-
-
 

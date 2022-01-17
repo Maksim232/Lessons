@@ -3,10 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { Button } from '@mui/material';
 import { TextField } from '@mui/material';
 
-export const AUTHORS = {
-    HUMAN: "dude",
-    BOT: "bot",
-};
+import { AUTHORS } from '../utils/constants';
 
 export const Form = ({ onSubmit }) => {
     const [value, setValue] = useState("");
