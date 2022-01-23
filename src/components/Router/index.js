@@ -1,19 +1,19 @@
 
-import { BrowserRouter, Link, Routes, Route, NavLink } from "react-router-dom";
+import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import Chats from "../Chats/Chats";
 import Profile from "../Profile";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Mistake } from '../Mistake';
 import './Router.css';
-import { auth } from "../../service/firebase";
-import { onAuthStateChanged } from "@firebase/auth";
-import { initAuthTracking, signIn, signOut } from "../../store/profile/actions";
+import { initAuthTracking } from "../../store/profile/actions";
 import { ChatList } from "../ChatList";
 import { Home } from "../Home";
 import { PrivateOutlet } from "../PrivateOutlet";
 import { PublicOutlet } from "../PublicOutlet";
 import { Articles } from "../Articles";
 import { useDispatch } from "react-redux";
+
+
 
 export const Router = () => {
     const dispatch = useDispatch();

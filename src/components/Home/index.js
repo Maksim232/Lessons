@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { signUp, logIn } from "../../service/firebase";
 
 export const Home = ({ isSignUp }) => {
     const [email, setEmail] = useState("");
     const [pass, setPass] = useState("");
     const [error, setError] = useState("");
-    const dispatch = useDispatch();
+
 
     const handleClick = async (e) => {
         e.preventDefault();

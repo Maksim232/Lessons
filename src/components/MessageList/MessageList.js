@@ -1,10 +1,7 @@
-
+import { AUTHORS } from "../utils/constants";
 import { Message } from "./Message";
 
-export const AUTHORS = {
-    HUMAN: "human",
-    BOT: "bot",
-};
+
 
 export const MessageList = ({ messages }) => (
     <div>

@@ -1,9 +1,6 @@
 
 import { withProfileContext } from "../../utils/ProfileContext";
-export const AUTHORS = {
-    HUMAN: "human",
-    BOT: "bot",
-};
+import { AUTHORS } from "../../utils/constants";
 
 export const Message = ({ author, text, name }) => (
     <div className={author === AUTHORS.HUMAN ? "human-msg" : "bot-msg"}>

@@ -1,23 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
     connect,
-    // useDispatch, useSelector, shallowEqual
 } from "react-redux";
-import { onValue, set } from "firebase/database";
+
 
 import {
-    logOut,
-    userNameRef,
-    userRef,
-    userShowNameRef,
+    logOut
 } from "../../service/firebase";
 import {
     initUserData,
-    setName,
     setNameInDB,
-    setShowNameInDB,
-    signOut,
-    toggleName,
+    setShowNameInDB
 } from "../../store/profile/actions";
 import { Form } from "../Form";
 const ProfileForConnect = ({
@@ -25,7 +18,7 @@ const ProfileForConnect = ({
     userName,
     changeName,
     toggleShowName,
-    connectToDb,
+    connectToDb
 }) => {
     useEffect(() => {
         connectToDb();

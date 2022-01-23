@@ -1,5 +1,13 @@
+import { onValue, push } from "@firebase/database";
+import {
+    getMsgsListRefById,
+    msgsRef
+} from "../../service/firebase";
+
+
 export const ADD_MESSAGE = "MESSAGES::ADD_MESSAGE";
 export const DELETE_MESSAGE = "MESSAGES::DELETE_MESSAGE";
+export const SET_MESSAGES = "MESSAGES::SET_MESSAGES";
 export const AUTHORS = {
     HUMAN: "dude",
     BOT: "bot",
@@ -43,4 +51,27 @@ export const addMessageWithReply = (newMessage, chatId) => (dispatch) => {
             );
         }, 1500);
     }
+};
+
+const setMsgs = (msgs) => ({
+    type: SET_MESSAGES,
+    payload: msgs,
+});
+
+export const initMsgsTracking = () => (dispatch) => {
+    onValue(msgsRef, (snapshot) => {
+        const newMsgs = {};
+
+        snapshot.forEach((chatMsgsSnap) => {
+            newMsgs[chatMsgsSnap.key] = Object.values(
+                chatMsgsSnap.val().messageList || {}
+            );
+        });
+
+        dispatch(setMsgs(newMsgs));
+    });
+};
+
+export const addMsgWithFb = (newMsg, chatId) => () => {
+    push(getMsgsListRefById(chatId), newMsg);
 };

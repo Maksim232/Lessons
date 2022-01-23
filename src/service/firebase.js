@@ -1,4 +1,3 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {
     createUserWithEmailAndPassword,
@@ -39,3 +38,4 @@ export const chatsRef = ref(db, "chats");
 export const msgsRef = ref(db, "messages");
 export const getChatRefById = (id) => ref(db, `chats/${id}`);
 export const getMsgsRefById = (chatId) => ref(db, `messages/${chatId}`);
+export const getMsgsListRefById = (chatId) => ref(db, `messages/${chatId}/messageList`);
